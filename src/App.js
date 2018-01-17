@@ -6,31 +6,21 @@ import Login from './components/Login'
 import SelectDate from './components/SelectDate'
 import Finished from './components/Finished'
 
-import PropTypes from 'prop-types';
-
 class App extends Component {
   render() {
-    this.context.mixpanel.track('Page loaded')
-
     return (
       <Router>
       <div className="App">
-        <Route exact path="/" component={Login} />
-        <Route exact path="/enrollment" component={Login} />
+        <Route exact path="/:channel" component={Login} />
 
-        <Route exact path="/calendar" component={SelectDate} />
+        <Route exact path="/:channel/calendar" component={SelectDate} />
 
-        <Route exact path="/finished" component={Finished} />
-        <Route exact path="/enrollment/finished" component={Finished} />
+        <Route exact path="/:channel/finished" component={Finished} />
       </div>
       </Router>
     );
   }
 }
-
-App.contextTypes = {
-    mixpanel: PropTypes.object.isRequired
-};
 
 const mapStateToProps = state => ({
 })

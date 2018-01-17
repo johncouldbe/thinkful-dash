@@ -21,11 +21,12 @@ class Login extends Component {
       locationErr: false
     }
     this.handleChange = this.handleChange.bind(this)
-    this.wait = this.props.match.path == '/enrollment' ? true : false
+    this.channel = this.props.match.params.channel
+    this.wait = this.props.match.params.channel == 'enrollment' ? true : false
   }
 
   componentWillMount(){
-    //this.context.mixpanel.track('Page loaded')
+    this.context.mixpanel.track(`${this.channel}_Page loaded`)
 
     if(this.wait) return
 
@@ -38,7 +39,7 @@ class Login extends Component {
     const state = this.state
 
     if(!this.wait) {
-      this.context.mixpanel.track('Enrolled', {
+      this.context.mixpanel.track(`${this.channel}_Enrolled`, {
                                                 "Name": state.fullName,
                                                 "Email": state.email
                                               })
@@ -52,7 +53,8 @@ class Login extends Component {
                                 state.fullName,
                                 state.email,
                                 state.phone,
-                                state.location))
+                                state.location,
+                                this.channel))
   }
 
   handleChange(e, input) {
@@ -81,13 +83,15 @@ class Login extends Component {
   }
 
   render() {
-    
+    console.log(this.channel);
     if(this.props.loggedIn) {
       if(this.wait) {
-        return <Redirect to='/enrollment/finished' />
+        const url = `/${this.channel}/finished`
+        return <Redirect to={url} />
       }
 
-      return <Redirect to='/calendar' />
+      const url = `/${this.channel}/calendar`
+      return <Redirect to={url} />
     }
     return (
       <div id="app">

@@ -18,6 +18,7 @@ class Calendar extends Component {
       },
       isSelected: false
     }
+    this.channel = this.props.channel
     this.dbRef = firebase.database().ref().child('dates')
   }
 
@@ -35,7 +36,7 @@ class Calendar extends Component {
     const selected = this.state.selected
 
     if(window.confirm(`Are you sure you want to schedule your time for ${selected.parent} at ${selected.time}?`)){
-      this.context.mixpanel.track('Scheduled', {
+      this.context.mixpanel.track(`${this.channel}_Scheduled`, {
                                                 "Name": this.props.credentials.fullName,
                                                 "Email": this.props.credentials.email,
                                                 "Time": `${selected.parent}, ${selected.time}`
@@ -60,7 +61,9 @@ class Calendar extends Component {
       this.dbRef.set(
         allDates
       );
-      this.props.dispatch(sendScheduled(this.props.credentials, this.state.selected))
+      this.props.dispatch(sendScheduled(this.props.credentials,
+                                        this.state.selected,
+                                        this.channel))
     }
   }
 
@@ -122,7 +125,6 @@ class Calendar extends Component {
   }
 
   render() {
-
     return (
       <div className="page-container page-container-calendar">
         <div className="onboarding-page onboarding-page__call">

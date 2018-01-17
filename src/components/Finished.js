@@ -14,7 +14,7 @@ import ReactPixel from 'react-facebook-pixel';
 class Finished extends Component {
   constructor(props) {
     super(props)
-    this.wait = this.props.match.path == '/enrollment/finished' ? true : false
+    this.wait = this.props.match.url == '/enrollment/finished' ? true : false
   }
 
   componentWillMount(){

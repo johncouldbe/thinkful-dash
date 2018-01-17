@@ -20,6 +20,7 @@ class SelectDate extends Component {
     this.state = {
       selected:false
     }
+    this.channel = this.props.match.params.channel
   }
 
   componentWillMount(){
@@ -28,7 +29,8 @@ class SelectDate extends Component {
 
   render() {
     if(this.props.scheduled) {
-      return <Redirect to='/finished' />
+      const url = `/${this.channel}/finished`
+      return <Redirect to={url} />
     }
 
     return (
@@ -41,7 +43,7 @@ class SelectDate extends Component {
           <div className="page-container" id="calendar-container">
           <div className="onboarding-page-container">
             <h4>Schedule your onboarding call to complete enrollment and get access to Thinkful’s platform and curriculum.</h4>
-            <Calendar />
+            <Calendar channel={this.channel}/>
           </div>
           </div>
       </div>

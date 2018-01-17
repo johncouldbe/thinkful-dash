@@ -9,11 +9,15 @@ export const logInCredentials = (fullName, email, phone, location) => ({
     location
 })
 
-export const loggedIn = (fullName, email, phone, location) => dispatch => {
+export const loggedIn = (fullName, email, phone, location, channel) => dispatch => {
   const credentials = {fullName, email, phone, location}
 
-  return axios.post('https://us-central1-thinkful-student-dash.cloudfunctions.net/sendgrid/login2', {
-      data: {credentials}
+  return axios.post('https://us-central1-thinkful-student-dash.cloudfunctions.net/sendgrid/login', {
+      data: {
+        credentials,
+        url: 'prep',
+        channel
+      }
     })
     .then(function (response) {
       dispatch(logInCredentials(fullName, email, phone, location))
@@ -28,11 +32,15 @@ export const scheduled = () => ({
     type: SCHEDULED
 })
 
-export const sendScheduled = (credentials, time) => dispatch => {
+export const sendScheduled = (credentials, time, channel) => dispatch => {
   console.log('credentials', credentials);
   console.log('time', time);
-  return axios.post('https://us-central1-thinkful-student-dash.cloudfunctions.net/sendgrid/scheduled2', {
-      data: {credentials, time}
+  return axios.post('https://us-central1-thinkful-student-dash.cloudfunctions.net/sendgrid/scheduled', {
+      data: {
+        credentials,
+        time,
+        url: 'prep',
+        channel}
     })
     .then(function (response) {
       dispatch(scheduled())
