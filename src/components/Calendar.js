@@ -18,8 +18,12 @@ class Calendar extends Component {
       },
       isSelected: false
     }
+    if(/la-/.test('la-fb-link')) {console.log('TRUE')}
+    else {console.log('FALSE');}
     this.channel = this.props.channel
-    this.dbRef = firebase.database().ref().child('dates')
+    this.dbRef = /la-/.test(this.channel)
+      ? firebase.database().ref().child('shannon')
+      : firebase.database().ref().child('aaron')
   }
 
   componentWillMount(){
@@ -125,6 +129,7 @@ class Calendar extends Component {
   }
 
   render() {
+
     return (
       <div className="page-container page-container-calendar">
         <div className="onboarding-page onboarding-page__call">

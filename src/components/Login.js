@@ -84,6 +84,7 @@ class Login extends Component {
 
   render() {
     console.log(this.channel);
+    
     if(this.props.loggedIn) {
       if(this.wait) {
         const url = `/${this.channel}/finished`

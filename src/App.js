@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route, BrowserRouter as Router} from 'react-router-dom'
+import {Route, Redirect, BrowserRouter as Router} from 'react-router-dom'
 import {connect} from 'react-redux'
 import './App.css';
 import Login from './components/Login'
@@ -11,6 +11,7 @@ class App extends Component {
     return (
       <Router>
       <div className="App">
+        <Route exact path="/" render={() => <Redirect to="/other" />} />
         <Route exact path="/:channel" component={Login} />
 
         <Route exact path="/:channel/calendar" component={SelectDate} />
